@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View, Dimensions} from 'react-native';
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -7,8 +7,12 @@ import {
 } from '@gorhom/bottom-sheet';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Colors from '../constants/Colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Link} from '@react-navigation/native';
 
 export type Ref = BottomSheetModal;
+
+const {width} = Dimensions.get('window');
 
 const BottomSheet = React.forwardRef<Ref>((props, ref) => {
   const snapPoints = React.useMemo(() => ['50%'], []);
@@ -44,6 +48,27 @@ const BottomSheet = React.forwardRef<Ref>((props, ref) => {
             <Text style={styles.inactiveText}>Pickup</Text>
           </TouchableOpacity>
         </View>
+
+        <Text style={styles.subheader}>Your Location</Text>
+        <TouchableOpacity>
+          <View style={styles.item}>
+            <Ionicons name="location-outline" size={20} color={Colors.medium} />
+            <Text style={{flex: 1}}>Use Current Location</Text>
+            <Ionicons name="chevron-forward" size={20} color={Colors.medium} />
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.subheader}>Arrival Time</Text>
+        <TouchableOpacity>
+          <View style={styles.item}>
+            <Ionicons
+              name="stopwatch-outline"
+              size={20}
+              color={Colors.medium}
+            />
+            <Text style={{flex: 1}}>Use Current Location</Text>
+            <Ionicons name="chevron-forward" size={20} color={Colors.medium} />
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => dismiss()}>
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
@@ -62,7 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 20,
+    gap: 10,
     marginBottom: 20,
   },
   toggleActive: {
@@ -70,13 +95,13 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 32,
     paddingHorizontal: 30,
-},
+  },
   activeText: {
     color: '#fff',
     fontWeight: '700',
   },
   toggleInactive: {
-     padding: 8,
+    padding: 8,
     borderRadius: 32,
     paddingHorizontal: 30,
   },
@@ -93,5 +118,20 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  subheader: {
+    fontSize: 16,
+    fontWeight: '600',
+    margin: 16,
+    color: '#000',
+  },
+  item: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderColor: Colors.grey,
+    borderWidth: 1,
   },
 });
